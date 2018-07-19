@@ -43,7 +43,6 @@ Public Function GetProperty(ByVal property As String) As IJson
     Set GetProperty = m_properties(property)
 End Function
 
-
 Private Function IJson_ToJson() As String
     Dim i As Long
     Dim propertyCount As Long

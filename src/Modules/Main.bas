@@ -1,10 +1,27 @@
 Attribute VB_Name = "Main"
+Public server As InterruptHttpServer
+
 Public Sub Main()
-    Dim server As HttpServer
-    Set server = New HttpServer
+    Set server = New InterruptHttpServer
     
-    server.Controllers.AddController New WorkbookWebController
-    server.Controllers.AddController New FileSystemWebController
-    
-    server.Serve 8080
+    On Error GoTo ERR_HNDL_BINDING
+    server.Init 1018
+    GoTo ERR_NO
+ERR_HNDL_BINDING:
+    MsgBox "Error in initializing server: " + Err.Description
+    Exit Sub
+ERR_NO:
+    periodically
 End Sub
+
+Private Sub periodically()
+    server.server
+    If server.isStopped Then
+        MsgBox "Server was stopped"
+    ElseIf server.isWaiting Then
+        Application.OnTime (Now + TimeValue("00:00:02")), "periodically"
+    Else
+        Application.OnTime (Now + TimeValue("00:00:00")), "periodically"
+    End If
+End Sub
+

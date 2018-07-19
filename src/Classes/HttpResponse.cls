@@ -22,9 +22,11 @@ Public Property Get StatusCode() As Integer
 End Property
 
 
-Public Property Let StatusCode(ByVal Value As Integer)
-    m_statusCode = Value
+Public Property Let StatusCode(ByVal value As Integer)
+    m_statusCode = value
 End Property
+
+
 
 
 Public Property Get Body() As String
@@ -32,8 +34,8 @@ Public Property Get Body() As String
 End Property
 
 
-Public Property Let Body(ByVal Value As String)
-    m_body = Value
+Public Property Let Body(ByVal value As String)
+    m_body = value
 End Property
 
 
@@ -51,7 +53,7 @@ Public Function ToString() As String
     text = "HTTP/1.1 " & StatusCode & " Nobody Needs This Anyway" & vbCrLf
     
     For Each header In Headers.GetEnumerator
-        text = text & header.name & ": " & header.Value & vbCrLf
+        text = text & header.name & ": " & header.value & vbCrLf
     Next header
     
     text = text & vbCrLf
